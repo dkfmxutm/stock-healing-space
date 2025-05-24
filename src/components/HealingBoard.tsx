@@ -2,12 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent, Typography, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-const StyledCard = styled(Card)({
-  margin: '20px',
-  backgroundColor: '#FFF0F5', // Lavender blush
-  borderRadius: '15px',
-  boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-});
+const StyledCard = styled(Card)(({ theme }) => ({
+  margin: theme.spacing(2),
+  backgroundColor: theme.palette.background.paper,
+  borderRadius: 20,
+  boxShadow: '0 8px 24px rgba(0,168,107,0.08)',
+  transition: 'transform 0.3s ease-in-out',
+  '&:hover': {
+    transform: 'translateY(-4px)',
+  },
+}));
 
 const messages = [
   "주식시장의 하락은 일시적입니다. 더 나은 내일이 올 거예요.",
@@ -33,18 +37,36 @@ const HealingBoard: React.FC = () => {
   }, []);
 
   return (
-    <Box sx={{ padding: '20px' }}>
-      <StyledCard>
-        <CardContent>
-          <Typography variant="h5" component="div" gutterBottom align="center">
-            오늘의 응원 메시지
-          </Typography>
-          <Typography variant="body1" align="center" sx={{ fontWeight: 500 }}>
-            {currentMessage}
-          </Typography>
-        </CardContent>
-      </StyledCard>
-    </Box>
+    <StyledCard>
+      <CardContent sx={{ p: 4 }}>
+        <Typography 
+          variant="h6" 
+          component="div" 
+          gutterBottom 
+          align="center"
+          sx={{ 
+            color: 'primary.main',
+            fontWeight: 700,
+            letterSpacing: '-0.02em',
+            mb: 2
+          }}
+        >
+          오늘의 응원 메시지
+        </Typography>
+        <Typography 
+          variant="body1" 
+          align="center" 
+          sx={{ 
+            fontWeight: 500,
+            color: 'text.primary',
+            letterSpacing: '-0.01em',
+            lineHeight: 1.8
+          }}
+        >
+          {currentMessage}
+        </Typography>
+      </CardContent>
+    </StyledCard>
   );
 };
 
